@@ -69,7 +69,6 @@ Just prints the file being read in by `read-track'."
      (format stream "~&")))
 
 (defparameter +START+ (char-code #\S))
-(defparameter +PIVOT+ (char-code #\P))
 
 (defun find-special-place (array thing)
   "Find in the track ARRAY the THING. 
@@ -177,6 +176,8 @@ This will also abort the search and return from the encompassing function."
 			    (format t "~%~% Length: ~D~&" length))
 			  (return-from find-shortest-path-classical))
 			(check-position (x y)
+			  "Call back to determine if position x y is valid for the racing path.
+Also handles the winning condition by printing the winning track and exit the search."
 			  (case (aref track x y)
 			    (#. (char-code #\-) nil)
 			    (#. (char-code #\F)
